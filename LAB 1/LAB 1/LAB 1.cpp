@@ -15,11 +15,23 @@ void input(double** A, double* b, int n) {
     }
 }
 
+void print_system(double** A, double* b, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << A[i][j] << "x" << j + 1;
+            if (j != n - 1) {
+                cout << " + ";
+            }
+        }
+        cout << " = " << b[i] << endl;
+    }
+}
+
 double* gauss(double** A, double* b, int n) {
     double* x = new double[n], max;
     int current = 0, indexMax;
     const double eps = 0.00001;  // точность
-    while (current < n) {
+    for(int current = 0; current < n; current++) {
         // Поиск строки с максимальным a[i][k]
         max = abs(A[current][current]);
         indexMax = current;
@@ -43,10 +55,8 @@ double* gauss(double** A, double* b, int n) {
             cout << indexMax << " матрицы A" << endl;
             return 0;
         }
-        for (int j = 0; j < n; j++) { //меняем current строку с max элементом в current столбце
-            double temp = A[current][j];
-            A[current][j] = A[indexMax][j];
-            A[indexMax][j] = temp;
+        for (int j = 0; j < n; j++) { //меняем current строку с max элементом в current столбце            
+            std::swap(A[current][j], A[indexMax][j]);
         }
         double temp = b[current];
         b[current] = b[indexMax];
@@ -70,7 +80,6 @@ double* gauss(double** A, double* b, int n) {
             }
             b[i] = b[i] - b[current];
         }
-        current++;
     }
     // обратная подстановка
     for (current = n - 1; current >= 0; current--) { //начинаем с последнего уравнения и двигаемся к 1(вычитаем из b[i] уже найденные x[j](j>i)
