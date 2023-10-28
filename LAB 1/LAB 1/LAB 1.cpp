@@ -1,5 +1,6 @@
-﻿#include <iostream>
+#include <iostream>
 #include <iomanip>
+#include <vector>
 using namespace std;
 
 void input(double** A, double* b, int n) {
@@ -14,7 +15,6 @@ void input(double** A, double* b, int n) {
         cin >> b[i];
     }
 }
-
 void print_system(double** A, double* b, int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -26,12 +26,11 @@ void print_system(double** A, double* b, int n) {
         cout << " = " << b[i] << endl;
     }
 }
-
 double* gauss(double** A, double* b, int n) {
     double* x = new double[n], max;
     int current = 0, indexMax;
     const double eps = 0.00001;  // точность
-    for(int current = 0; current < n; current++) {
+    while (current < n) {
         // Поиск строки с максимальным a[i][k]
         max = abs(A[current][current]);
         indexMax = current;
@@ -55,8 +54,10 @@ double* gauss(double** A, double* b, int n) {
             cout << indexMax << " матрицы A" << endl;
             return 0;
         }
-        for (int j = 0; j < n; j++) { //меняем current строку с max элементом в current столбце            
-            std::swap(A[current][j], A[indexMax][j]);
+        for (int j = 0; j < n; j++) { //меняем current строку с max элементом в current столбце
+            double temp = A[current][j];
+            A[current][j] = A[indexMax][j];
+            A[indexMax][j] = temp;
         }
         double temp = b[current];
         b[current] = b[indexMax];
@@ -80,6 +81,7 @@ double* gauss(double** A, double* b, int n) {
             }
             b[i] = b[i] - b[current];
         }
+        current++;
     }
     // обратная подстановка
     for (current = n - 1; current >= 0; current--) { //начинаем с последнего уравнения и двигаемся к 1(вычитаем из b[i] уже найденные x[j](j>i)
@@ -159,6 +161,19 @@ void solve_auxiliary_system(double** A, double* x_prime, double*& x, int n) {
     delete[] L;
 }
 
+double* residual(double** A, double* b, double* x, int n) {
+    int size = n;
+    double* r = new double[n];
+    for (int i = 0; i < size; i++) {
+        double sum = 0;
+        for (int j = 0; j < size; j++) {
+            sum += A[i][j] * x[j];
+        }
+        r[i] = sum - b[i];
+    }
+    return r;
+}
+
 int main()
 {
     double** A, * b, * x;
@@ -175,8 +190,7 @@ int main()
         cout << "x[" << i << "]=" << x[i] << endl;
     }
     double* roots1 = new double[n];
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++){
         roots1[i] = x[i];
     }
     double* F1 = new double[n];
@@ -187,12 +201,7 @@ int main()
         }
     }
     // Вычисление нормы вектора невязки
-    double norm1 = 0;
-    for (int i = 0; i < n; i++) {
-        norm1 += F1[i] * F1[i];
-    }
-    cout << "Norm of the residual vector: " << sqrt(norm1) << endl;
-
+    cout << "Norm of the residual vector: " << residual(A, b, x, n) << endl;
 
 
 
@@ -243,7 +252,8 @@ int main()
         norm2 += F2[i] * F2[i];
     }
     cout << "Norm of the residual vector: " << sqrt(norm2) << endl;
-
+    cout << endl;
+    //print_system(A, b, n);
     cin.get(); cin.get();
     return 0;
 }
