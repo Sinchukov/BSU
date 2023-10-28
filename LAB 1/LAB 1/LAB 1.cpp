@@ -247,11 +247,7 @@ int main()
         }
     }
     // Вычисление нормы вектора невязки
-    double norm2 = 0;
-    for (int i = 0; i < n; i++) {
-        norm2 += F2[i] * F2[i];
-    }
-    cout << "Norm of the residual vector: " << sqrt(norm2) << endl;
+    cout << "Norm of the residual vector: " << residual(A, b, x, n) << endl;
     cout << endl;
     //print_system(A, b, n);
     cin.get(); cin.get();
