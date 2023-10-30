@@ -188,7 +188,7 @@ int main()
         cout << "x[" << i << "]=" << x[i] << endl;
     }
     double* roots1 = new double[n];
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++){
         roots1[i] = x[i];
     }
     double* F1 = new double[n];
@@ -199,7 +199,9 @@ int main()
         }
     }
     // Вычисление нормы вектора невязки
-    cout << "Norm of the residual vector: " << residual(A, b, roots1, n) << endl;
+    cout << "residual vector: " << residual(A, b, x, n) << endl;
+
+    cout << "Norma: " << F1 << endl;
 
     // Решаем вспомогательную систему для проверки
     double* x_prime = new double[n];
@@ -207,7 +209,7 @@ int main()
         x_prime[i] = 1;
     }
     double* roots2 = new double[n];
-    solve_auxiliary_system(A, x_prime, roots1, n);
+    solve_auxiliary_system(A, x_prime, x, n);
     for (int i = 0; i < n; i++)
     {
         roots2[i] = x[i];
@@ -234,9 +236,17 @@ int main()
             }
         }
     }
+
+    double* F2 = new double[n];
+    for (int i = 0; i < n; i++) {   //Невязка - это вектор r, равный разности между вектором b и произведением матрицы A на вектор x.
+        F2[i] = -b[i];
+        for (int j = 0; j < n; j++) {
+            F2[i] += A[i][j] * roots2[j];
+        }
+    }
     // Вычисление нормы вектора невязки
-    cout << "Norm of the residual vector: " << residual(A, b, roots2, n) << endl;
-    cout << endl;
+    cout << "residual vector: " << residual(A, b, x, n) << endl;
+    cout << "Norma: " << F2 << endl;
     //print_system(A, b, n);
     cin.get(); cin.get();
     return 0;
