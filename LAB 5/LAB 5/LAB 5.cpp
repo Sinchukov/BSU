@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <iomanip>
 #include <math.h>
-#include "Header.h"
+#include "Integral.h"
 using namespace std;
 
 int main()

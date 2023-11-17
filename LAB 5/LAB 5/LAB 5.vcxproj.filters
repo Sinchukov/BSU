@@ -18,12 +18,12 @@
     <ClCompile Include="LAB 5.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Methods.cpp">
+    <ClCompile Include="Integral.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="Integral.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
