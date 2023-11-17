@@ -128,7 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="LAB 1.cpp" />
-    <ClCompile Include="Methods.cpp" />
+    <ClCompile Include="Gauss.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gauss.h" />

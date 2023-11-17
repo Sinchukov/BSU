@@ -18,7 +18,7 @@
     <ClCompile Include="LAB 1.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Methods.cpp">
+    <ClCompile Include="Gauss.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

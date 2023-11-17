@@ -1,7 +1,7 @@
 #include "Gauss.h"
 #include <iostream>
 using namespace std;
-
+//3 1 2 1 -1 -2 2 0 1 1 1 1 2
 int main()
 {
     double** A, * b, * x, *roots2, *roots1, fullError = 0.0;
@@ -20,24 +20,13 @@ int main()
     }
     cout << "residual vector: " << *residual(A, b, x, n) << endl;
     cout << "Norma: " << calculateResidualNorm(residual(A, b, x, n), n) << endl;
-    // Решаем вспомогательную систему для проверки  
-    solve_auxiliary_system(A, x, n);
+    solveAuxiliarySystem(A, x, n);
     for (int i = 0; i < n; i++) {
         roots2[i] = x[i];
         cout << "roots2[" << i << "] = " << roots2[i] << endl;
         fullError += relativeError(roots1[i], roots2[i]);
     }
     cout << "Relative Error: " << fullError << endl;
-    for (int i = 0; i < n; i++) {
-        b[i] = A[i][i];
-        for (int j = 0; j < n; j++) {
-            if (i != j) {
-                b[i] -= A[i][j];
-            }
-        }
-    }
-    cout << "residual vector: " << *residual(A, b, x, n) << endl;
-    cout << "Norma: " << calculateResidualNorm(residual(A, b, x, n), n) << endl;
     cin.get(); cin.get();
 
     delete[] roots1, roots2;
