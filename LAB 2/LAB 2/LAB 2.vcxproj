@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{560546c1-2d52-422d-bd4d-bd6db8821c70}</ProjectGuid>
+    <ProjectGuid>{e9ca82a3-4e4f-4926-b245-0f8804f3cc7f}</ProjectGuid>
     <RootNamespace>LAB2</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -128,9 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="LAB 2.cpp" />
+    <ClCompile Include="Methods.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Gauss.h" />
+    <ClInclude Include="Header.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
