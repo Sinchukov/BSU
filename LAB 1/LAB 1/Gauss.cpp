@@ -10,7 +10,7 @@ void    input(double** A, double* b, int n) {
             cin >> A[i][j];
         }
     }
-    for (int i = 0; i < n; i++) {       //b
+    for (int i = 0; i < n; i++) {      
         cout << "y[" << i << "]= ";
         cin >> b[i];
     }
@@ -31,9 +31,8 @@ void    printSystem(double** A, double* b, int n) {
 double* gauss(double** A, double* b, int n) {
     double* x = new double[n], max;
     int current = 0, indexMax;
-    const double eps = 0.00001;  // точность
+    const double eps = 0.00001; 
     for (int i = current; current < n; current++) {
-        // Поиск строки с максимальным a[i][k]
         max = abs(A[current][current]);
         indexMax = current;
         for (int i = current + 1; i < n; i++) {
@@ -49,29 +48,26 @@ double* gauss(double** A, double* b, int n) {
             }
             cout << "| " << b[i] << endl;
         }
-        // Перестановка строк
         if (max < eps) {
-            // нет ненулевых диагональных элементов
             cout << "Решение получить невозможно из-за нулевого столбца ";
             cout << indexMax << " матрицы A" << endl;
             return 0;
         }
-        for (int j = 0; j < n; j++) { //меняем current строку с max элементом в current столбце
+        for (int j = 0; j < n; j++) { 
             swap(A[current][j], A[indexMax][j]);
         }
         swap(b[current], b[indexMax]);
-        // Нормализация уравнений
         for (int i = current; i < n; i++) {
             double temp = A[i][current];
-            if (abs(temp) < eps) {  // для нулевого коэффициента пропустить
+            if (abs(temp) < eps) {  
                 continue;
             }
-            for (int j = 0; j < n; j++) { //получаем единичные элементы на главной диагонали
+            for (int j = 0; j < n; j++) { 
                 A[i][j] = A[i][j] / temp;
             }
             b[i] = b[i] / temp;
 
-            if (i == current) { // уравнение не вычитать само из себя
+            if (i == current) {
                 continue;
             }
             for (int j = 0; j < n; j++) {
@@ -81,14 +77,12 @@ double* gauss(double** A, double* b, int n) {
         }
 
     }
-    // обратная подстановка
-    for (current = n - 1; current >= 0; current--) { //начинаем с последнего уравнения и двигаемся к 1(вычитаем из b[i] уже найденные x[j](j>i)
-        x[current] = b[current];                    // умноженных на соответствующие элементы матрицы A
+    for (current = n - 1; current >= 0; current--) { 
+        x[current] = b[current];                    
         for (int i = 0; i < current; i++) {
             b[i] = b[i] - A[i][current] * x[current];
         }
     }
-    // Вывод значений матрицы
     cout << "--------------------------------------" << endl;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -96,7 +90,7 @@ double* gauss(double** A, double* b, int n) {
         }
         cout << "| " << b[i] << endl;
     }
-    return x; // возвращают решение системы уравнений - вектор x. Если решение невозможно, функции возвращают 0. 
+    return x;
 }
 
 void    solveAuxiliarySystem(double** A, double*& x, int n) {
