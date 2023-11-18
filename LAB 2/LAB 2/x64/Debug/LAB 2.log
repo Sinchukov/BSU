@@ -1,4 +1,7 @@
 ﻿  LAB 2.cpp
-C:\Users\user\Documents\GitHub\BSU\LAB 2\LAB 2\LAB 2.cpp(58,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\user\Documents\GitHub\BSU\LAB 2\LAB 2\LAB 2.cpp(99,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Methods.cpp
+C:\Users\user\Documents\GitHub\BSU\LAB 2\LAB 2\Methods.cpp(24,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\user\Documents\GitHub\BSU\LAB 2\LAB 2\Methods.cpp(128,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\user\Documents\GitHub\BSU\LAB 2\LAB 2\Methods.cpp(169,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Создание кода...
   LAB 2.vcxproj -> C:\Users\user\Documents\GitHub\BSU\LAB 2\x64\Debug\LAB 2.exe
