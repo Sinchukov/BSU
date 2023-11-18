@@ -112,25 +112,34 @@ double* residual(double** A, double* b, double* x, int n) {
     for (int i = 0; i < n; i++) {
         double sum = 0;
         for (int j = 0; j < n; j++) {
-            sum += A[i][j] * x[j];
-           // cout << r[i] << " += " << A[i][j] << " * " << x[j] << "[" << A[i][j] * x[j] << "] = " << sum << endl;
+            sum += A[i][j] * x[j];           
         }
         r[i] = -sum + b[i];
+        cout << "r[" << i << "] = " << r[i] << endl;
     }
     return r;
 }
 
 double  calculateResidualNorm(double* residual, int n) {
     double norm = 0.0;
-    for (int i = 0; i < n; i++)
-    {
-        if (abs(residual[i] > norm)) {
+    for (int i = 0; i < n; i++){
+        if (abs(residual[i]) > norm) {
             norm = abs(residual[i]);
         }
     }
     return norm;
 }
 
-double  relativeError(double roots1, double roots2) {
-    return abs(roots1 - roots2) / abs(roots1);
+double  relativeError(double *roots1, double *roots2, int n) {
+    double maxNumerator = 0.0, maxDenominator = 0.0;
+    for (int i = 0; i < n; i++){
+        double tempNumerator = abs(roots2[i] - roots1[i]), tempDenominator = abs(roots1[i]);
+        if (tempNumerator > maxNumerator) {
+            maxNumerator = tempNumerator;
+        }
+        else if (tempDenominator > maxDenominator) {
+            maxDenominator = tempDenominator;
+        }
+    }
+    return abs(maxNumerator)/abs(maxDenominator);
 }

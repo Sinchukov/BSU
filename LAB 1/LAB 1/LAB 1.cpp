@@ -21,12 +21,12 @@ int main()
     cout << "residual vector: " << *residual(A, b, x, n) << endl;
     cout << "Norma: " << calculateResidualNorm(residual(A, b, x, n), n) << endl;
     solveAuxiliarySystem(A, x, n);
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++){
         roots2[i] = x[i];
         cout << "roots2[" << i << "] = " << roots2[i] << endl;
-        fullError += relativeError(roots1[i], roots2[i]);
     }
-    cout << "Relative Error: " << fullError << endl;
+
+    cout << "Relative Error: " << relativeError(roots1, roots2, n) << endl;
     cin.get(); cin.get();
 
     delete[] roots1, roots2;
