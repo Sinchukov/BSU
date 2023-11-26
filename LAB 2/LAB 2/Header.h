@@ -2,7 +2,6 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <sstream>
 #include <vector>
 #include <math.h>
 using namespace std;

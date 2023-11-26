@@ -1,9 +1,4 @@
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <sstream>
 #include <vector>
-#include <math.h>
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -18,7 +13,7 @@ void  print(vector<int>&, vector<vector<double>>&, int);
 int   Max(vector<int>&, vector<vector<double>>&, int, int);
 void  swap(vector<int>&, int, int);
 
-bool Gaus(vector<int>& p, vector<double>& x, vector<vector<double>>& J, vector<double>& F)
+bool Gaus(vector<int>& p, vector<double>& x, vector<vector<double>>& J, vector<double>& F) 
 {
 	vector<vector<double>> a = J;
 	int n = p.size(), i, j;

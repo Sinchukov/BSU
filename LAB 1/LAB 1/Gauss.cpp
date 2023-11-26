@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void    input(double** A, double* b, int n) {
+void input(double** A, double* b, int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             cout << "a[" << i << "][" << j << "]= ";
@@ -16,7 +16,7 @@ void    input(double** A, double* b, int n) {
     }
 }
 
-void    printSystem(double** A, double* b, int n) {
+void printSystem(double** A, double* b, int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             cout << A[i][j] << "x" << j + 1;
@@ -49,8 +49,8 @@ double* gauss(double** A, double* b, int n) {
             cout << "| " << b[i] << endl;
         }
         if (max < eps) {
-            cout << "Решение получить невозможно из-за нулевого столбца ";
-            cout << indexMax << " матрицы A" << endl;
+            cout << "Cannot solve matrix ";
+            cout << indexMax << " Matrix A" << endl;
             return 0;
         }
         for (int j = 0; j < n; j++) { 
@@ -93,7 +93,7 @@ double* gauss(double** A, double* b, int n) {
     return x;
 }
 
-void    solveAuxiliarySystem(double** A, double*& x, int n) {
+void solveAuxiliarySystem(double** A, double*& x, int n) {
     gauss(A, x, n);
     cout << "Solution of Ax = Ax':" << endl;
 }

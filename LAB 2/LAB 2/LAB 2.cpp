@@ -7,7 +7,8 @@
 using namespace std;
 int main()
 {
-	int n = 2;
+	double e1 = 0.000000001, e2 = 0.000000001, d1 = 0.5, d2 = 0.2;
+	int k = 1, NIT = 100, n = 2;
 	vector<double> x, F, x1, deltx;
 	vector<int> p;
 	vector<vector<double>> J;
@@ -23,8 +24,6 @@ int main()
 	}
 	x.push_back(1);
 	x.push_back(1);
-	double e1 = 0.000000001, e2 = 0.000000001, d1 = 0.5, d2 = 0.2;
-	int k = 1, NIT = 100;
 	cout << "k				d1				d2" << endl;
 	while ((d1 > e1 || d2 > e2) && k < NIT){
 		Nev(F, x);
