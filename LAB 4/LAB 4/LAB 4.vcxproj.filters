@@ -26,5 +26,8 @@
     <ClInclude Include="MNK.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="qcustomplot.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
