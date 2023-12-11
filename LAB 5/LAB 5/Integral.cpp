@@ -81,40 +81,19 @@ double basicSimp(double a, double b, double(*function)(double), double e){
 	return I;
 }
 
-double cubeSimp(double a, double b, double c, double d, double (*DoubleFunkAgrument)(int, int, int), double e){
+double cubeSimp(double a, double b, double c, double d, double (*DoubleFunkAgrument)(int, int, int)){
+
 	int splitNumber = 4, m = splitNumber;
 	double h = (b - a) / (2.0 * splitNumber), k = (d - c) / (2.0 * m);    //splitNumber == n
-	double I = 0, I2;
-
-	for (int i = 0; i <= splitNumber; i++){
-		for (int j = 0; j <= m; j++)
-		{
+	double I = 0;
+	for (int i = 0; i < splitNumber; i++){
+		for (int j = 0; j < m; j++){
 			I += DoubleFunkAgrument(2 * i, 2 * j, splitNumber) + DoubleFunkAgrument(2 * i + 2, 2 * j, splitNumber) + DoubleFunkAgrument(2 * i + 2, 2 * j + 2, splitNumber) + DoubleFunkAgrument(2 * i, 2 * j + 2, splitNumber) +
-				4 * (DoubleFunkAgrument(2 * i + 1, 2 * j, splitNumber) + DoubleFunkAgrument(2 * i + 2, 2 * j + 1, splitNumber) + DoubleFunkAgrument(2 * i + 1, 2 * j + 2, splitNumber) + DoubleFunkAgrument(2 * i, 2 * j + 1, splitNumber)) +
-				16 * DoubleFunkAgrument(2 * i + 1, 2 * j + 1, splitNumber);
-		}
+			4 * (DoubleFunkAgrument(2 * i + 1, 2 * j, splitNumber) + DoubleFunkAgrument(2 * i + 2, 2 * j + 1, splitNumber) + DoubleFunkAgrument(2 * i + 1, 2 * j + 2, splitNumber) + DoubleFunkAgrument(2 * i, 2 * j + 1, splitNumber)) +
+			16 * DoubleFunkAgrument(2 * i + 1, 2 * j + 1, splitNumber);
+		}	
 	}
 	I *= h * k / 9;
-
-	do
-	{
-		splitNumber *= 2;
-		h = (b - a) / (2.0 * splitNumber);
-		k = (d - c) / (2.0 * m);
-		I2 = I;
-		I = 0;
-		for (int i = 0; i <= splitNumber; i++)
-		{
-			for (int j = 0; j <= m; j++)
-			{
-				I += DoubleFunkAgrument(2 * i, 2 * j, splitNumber) + DoubleFunkAgrument(2 * i + 2, 2 * j, splitNumber) + DoubleFunkAgrument(2 * i + 2, 2 * j + 2, splitNumber) + DoubleFunkAgrument(2 * i, 2 * j + 2, splitNumber) +
-					4 * (DoubleFunkAgrument(2 * i + 1, 2 * j, splitNumber) + DoubleFunkAgrument(2 * i + 2, 2 * j + 1, splitNumber) + DoubleFunkAgrument(2 * i + 1, 2 * j + 2, splitNumber) + DoubleFunkAgrument(2 * i, 2 * j + 1, splitNumber)) +
-					16 * DoubleFunkAgrument(2 * i + 1, 2 * j + 1, splitNumber);
-			}
-		}
-		I *= h * k / 9;
-	} while (abs(I - I2) > 15 * e);
-
-	cout << "\t";
+	cout << "I: " << I << endl;
 	return I;
-}
+  }
