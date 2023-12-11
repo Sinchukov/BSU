@@ -5,7 +5,7 @@
 using namespace std;
 int main(int argc, char* argv[])
 {
-    QApplication a(argc, argv);
+    QApplication w(argc, argv);
     QCustomPlot* customPlot = new QCustomPlot();
     customPlot->addGraph();
     const int N = 9, m = 2;
@@ -64,5 +64,5 @@ int main(int argc, char* argv[])
     customPlot->yAxis->setRange(0, 1);
     customPlot->replot();
     customPlot->show();
-    return a.exec();
+    return w.exec();
 }
