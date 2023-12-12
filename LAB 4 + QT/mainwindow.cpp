@@ -66,13 +66,11 @@ double* gauss(double** A, double* b, int n) {
 
     return x;
 }
-
-
 void MainWindow::makePlot(){
     // generate some data:
-   // QApplication application((argc, argv));
-    QCustomPlot* customPlot = new QCustomPlot();
-    customPlot->addGraph();
+    // QApplication application((argc, argv));
+    QCustomPlot* widget = new QCustomPlot();
+    widget->addGraph(); // добавляем график
     const int N = 9, m = 2;
     double* PRAW = new double[m + 1];
     double x[N] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, y[N];
@@ -129,7 +127,8 @@ void MainWindow::makePlot(){
     ui->widget->yAxis->setRange(0, 1);
     ui->widget->replot();
     ui->widget->show();
-
 }
+
+
 
 
