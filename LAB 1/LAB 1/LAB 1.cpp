@@ -1,7 +1,7 @@
 #include "Gauss.h"
 #include <iostream>
 using namespace std;
-
+// 1 2 1 -1 -2 2 0 1 1 1 1 2
 int main()
 {
     double** A, * b, * x, *roots2, *roots1, fullError = 0.0;
@@ -18,8 +18,8 @@ int main()
         cout << "x[" << i << "]=" << x[i] << endl;
         roots1[i] = x[i];
     }
-    cout << "residual vector: " << *residual(A, b, x, n) << endl;
-    cout << "Norma: " << calculateResidualNorm(residual(A, b, x, n), n) << endl;
+    cout << "residual vector: " << *residual(A, b, roots1, n) << endl;
+    cout << "Norma: " << calculateResidualNorm(residual(A, b, roots1, n), n) << endl;
     solveAuxiliarySystem(A, x, n);
     for (int i = 0; i < n; i++){
         roots2[i] = x[i];

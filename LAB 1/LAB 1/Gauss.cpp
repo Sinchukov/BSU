@@ -108,7 +108,7 @@ double* residual(double** A, double* b, double* x, int n) {
         for (int j = 0; j < n; j++) {
             sum += A[i][j] * x[j];           
         }
-        r[i] = -sum + b[i];
+        r[i] = sum - b[i];
         cout << "r[" << i << "] = " << r[i] << endl;
     }
     return r;
