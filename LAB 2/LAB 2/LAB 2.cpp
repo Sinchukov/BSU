@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <math.h>
 #include <vector>
-#include "Header.h"
+#include "NewTon.h"
 
 using namespace std;
 int main()

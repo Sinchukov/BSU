@@ -18,12 +18,12 @@
     <ClCompile Include="LAB 2.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Methods.cpp">
+    <ClCompile Include="NewTon.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="NewTon.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

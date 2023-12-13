@@ -1,7 +1,7 @@
 ﻿  LAB 2.cpp
-  Methods.cpp
-C:\Users\user\Documents\GitHub\BSU\LAB 2\LAB 2\Methods.cpp(19,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\user\Documents\GitHub\BSU\LAB 2\LAB 2\Methods.cpp(123,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\user\Documents\GitHub\BSU\LAB 2\LAB 2\Methods.cpp(164,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  NewTon.cpp
+C:\Users\user\Documents\GitHub\BSU\LAB 2\LAB 2\NewTon.cpp(19,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\user\Documents\GitHub\BSU\LAB 2\LAB 2\NewTon.cpp(123,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\user\Documents\GitHub\BSU\LAB 2\LAB 2\NewTon.cpp(164,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   Создание кода...
   LAB 2.vcxproj -> C:\Users\user\Documents\GitHub\BSU\LAB 2\x64\Debug\LAB 2.exe
