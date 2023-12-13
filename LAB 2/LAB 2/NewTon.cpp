@@ -1,178 +1,110 @@
+#include <cmath>
 #include <vector>
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <sstream>
-#include <math.h>
-
+#include<iostream>
 using namespace std;
+vector<double> gaussElimination(const vector<vector<double>>& A, const vector<double>& B);
+vector<double> backSubstitution(const vector<vector<double>>& augmentedMatrix, int n);
+void forwardElimination(vector<vector<double>>& augmentedMatrix, int n);
 
-bool  Gaus(vector<int>&, vector<double>&, vector<vector<double>>&, vector<double>&);
-bool  GausSh(vector<int>&, vector<vector<double>>&, int, int);
-void  print(vector<int>&, vector<vector<double>>&, int);
-int   Max(vector<int>&, vector<vector<double>>&, int, int);
-void  swap(vector<int>&, int, int);
+double function1(const double& x01, const double& x02) {
 
-bool Gaus(vector<int>& p, vector<double>& x, vector<vector<double>>& J, vector<double>& F) 
-{
-	vector<vector<double>> a = J;
-	int n = p.size(), i, j;
-	double sumx;
-	for (int i = 0; i < n; i++) {
-		a[i].push_back(F[i] * -1);
-	}
-	for (int k = 0; k < n; k++){
-		if (GausSh(p, a, n, k)){
-			print(p, a, n);
-		}
-		else {
-			return 0;
-		}
-	}
-	for (i = n - 1; i >= 0; i--){
-		sumx = 0;
-		for (j = i + 1; j < n; j++) {
-			sumx += a[p[i]][j] * x[j];
-		}
-		cout << a[p[i]][n] - sumx << " = " << a[p[i]][n] << " - " << sumx << endl;
-		x[i] = a[p[i]][n] - sumx;
-	}
-	for (i = 0; i < n; i++) {
-		cout << "x" << i << " = " << setprecision(20) << fixed << x[i] << endl;
-	}
-	return 1;
+    return 2 * pow(x01, 3) - pow(x02, 2) - 1;
+}
+double function2(const double& x01, const double& x02) {
+
+    return x01 * pow(x02, 3) - x02 - 4;
+}
+double J1Dx01(const double& x01, const double& x02) {
+    return 6 * x01 * x01;
 }
 
-bool GausSh(vector<int>& p, vector<vector<double>>& a, int n, int k)
-{
-	cout << "k = " << k << endl;
-	cout << "------" << endl;
-	print(p, a, n);
-	int max = Max(p, a, n, k);
-	cout << max << endl;
-	swap(p, p[k], max);
-
-	double del = a[max][k];
-	cout << del << endl;
-	for (int j = k; j < n + 1; j++) {
-		a[max][j] /= del;
-	}
-	print(p, a, n);
-
-	for (int i = k + 1; i < n; i++){
-		del = a[p[i]][k];
-		cout << "del = " << del << endl;
-		for (int j = k; j < n + 1; j++){
-			cout << a[p[i]][j] << " -= " << a[p[k]][j] << " * " << del << " [ "<< (a[p[k]][j] * del) <<" ] "<< endl;
-			a[p[i]][j] -= (a[p[k]][j] * del);
-		}
-		print(p, a, n);
-	}
-
-	return 1;
+double J1Dx02(const double& x01, const double& x02) {
+    return -2 * x02 * x02;
 }
 
-void print(vector<int>& p, vector<vector<double>>& a, int n){
-	int i, j;
-	for (i = 0; i < n; i++){
-		cout << p[i] << "   ";
-		for (j = 0; j < n; j++)
-			cout << setprecision(4) << fixed << setw(8) << a[i][j];
-		cout << " = " << a[i][n];
-		cout << endl;
-	}
-	cout << endl;
+double J2Dx01(const double& x01, const double& x02) {
+    return pow(x02, 3);
 }
 
-int Max(vector<int>& p, vector<vector<double>>& a, int n, int k){
-	double max = 0;
-	int maxs = p[k];
-	cout << "  " << maxs << endl;
-	for (int i = k; i < n; i++){
-		if (abs(a[p[i]][k]) > max){
-			cout << abs(a[p[i]][k]) << " > " << max << endl;
-			max = abs(a[p[i]][k]);
-			maxs = p[i];
-		}
-	}
-
-	return maxs;
+double J2Dx02(const double& x01, const double& x02) {
+    return  3 * x02 * x02 - 1;
+}
+void J(vector<double>& x0, vector<vector<double>>& matrix) {
+    matrix[0][0] = J1Dx01(x0[0], x0[1]);
+    matrix[0][1] = J1Dx02(x0[0], x0[1]);
+    matrix[1][0] = J2Dx01(x0[0], x0[1]);
+    matrix[1][1] = J2Dx02(x0[0], x0[1]);
+}
+void J1(vector<double>& x0, vector<vector<double>>& matrix, double M) {
+    matrix[0][0] = (function1(x0[0] + M * x0[0], x0[1]) - function1(x0[0], x0[1])) / M * x0[0];
+    matrix[0][1] = (function1(x0[0], x0[1] + M * x0[1]) - function1(x0[0], x0[1])) / M * x0[1];
+    matrix[1][0] = (function2(x0[0] + M * x0[0], x0[1]) - function2(x0[0], x0[1])) / M * x0[0];
+    matrix[1][1] = (function2(x0[0], x0[1] + M * x0[1]) - function2(x0[0], x0[1])) / M * x0[1];
+}
+double delta1(const vector<double>& x0) {
+    double f1 = function1(x0[0], x0[1]), f2 = function2(x0[0], x0[1]);
+    if (abs(f1) > abs(f2))return f1;
+    else return f2;
+}
+double delta2(const vector<double>& x0, const vector<double>& xk1) {
+    double max = 0;
+    for (int i = 0; i < x0.size(); i++) {
+        if (abs(xk1[i]) < 1) {
+            if (abs(xk1[i] - x0[i] > max)) {
+                max = abs(xk1[i] - x0[i]);
+            }
+        }
+        else {
+            if ((abs(xk1[i] - x0[i]) / xk1[i] > max)) {
+                max = abs(xk1[i] - x0[i]) / xk1[i];
+            }
+        }
+    }
+    return max;
 }
 
-void swap(vector<int>& p, int k1, int k2){
-	int s1 = 0, s2 = 0;;
-	while (p[s1] != k1) {
-		s1++;
-	}
-	while (p[s2] != k2) {
-		s2++;
-	}
-	p[s1] = k2;
-	p[s2] = k1;
+void forwardElimination(vector<vector<double>>& augmentedMatrix, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            double ratio = augmentedMatrix[j][i] / augmentedMatrix[i][i];
+            for (int k = 0; k <= n; k++) {
+                augmentedMatrix[j][k] -= ratio * augmentedMatrix[i][k];
+            }
+        }
+    }
+}
+vector<double> gaussElimination(const vector<vector<double>>& A, const vector<double>& B) {
+    int n = A.size();
+    // Создаем расширенную матрицу [A | B]
+    vector<vector<double>> augmentedMatrix(n, vector<double>(n + 1));
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            augmentedMatrix[i][j] = A[i][j];
+        }
+        augmentedMatrix[i][n] = B[i];
+    }
+
+    // Прямой ход
+    forwardElimination(augmentedMatrix, n);
+
+    // Обратный ход
+    vector<double> solution = backSubstitution(augmentedMatrix, n);
+
+    return solution;
 }
 
-
-void print(vector<double> mas) {
-	for (int i = 0; i < mas.size(); i++) {
-		cout << mas[i] << " ";
-	}
-	cout << endl << endl;
+vector<double> backSubstitution(const vector<vector<double>>& augmentedMatrix, int n) {
+    vector<double> solution(n);
+    for (int i = n - 1; i >= 0; i--) {
+        solution[i] = augmentedMatrix[i][n];
+        for (int j = i + 1; j < n; j++) {
+            solution[i] -= augmentedMatrix[i][j] * solution[j];
+        }
+        solution[i] /= augmentedMatrix[i][i];
+    }
+    return solution;
 }
 
-void print(vector<vector<double>> mas) {
-	int n = mas[0].size();
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			cout << mas[i][j] << " ";
-		}
-		cout << endl;
-	}
-	cout << endl;
-}
-
-void Nev(vector<double>& F, vector<double> x) {
-	F[0] = 1.5 * pow(x[0], 3) - pow(x[1], 2) - 1;
-	F[1] = x[0] * pow(x[1], 3) - x[1] - 4;
-}
-
-void Jac(vector< vector<double>>& J, vector<double> x) {
-	J[0][0] = 4.5 * pow(x[0], 2);
-	J[0][1] = -2 * x[1];
-	J[1][0] = pow(x[1], 3);
-	J[1][1] = 3 * x[0] * pow(x[1], 2) - 1;
-}
-
-void Jac2(vector< vector<double>>& J, vector<double> x, double M) {
-	J[0][0] = ((1.5 * pow(x[0] + M * x[0], 3) - pow(x[1], 2) - 1) - (1.5 * pow(x[0], 3) - pow(x[1], 2) - 1)) / (M * x[0]);
-	J[0][1] = ((1.5 * pow(x[0], 3) - pow(x[1] + M * x[1], 2) - 1) - (1.5 * pow(x[0], 3) - pow(x[1], 2) - 1)) / (M * x[1]);
-	J[1][0] = (((x[0] + M * x[0]) * pow(x[1], 3) - x[1] - 4) - (x[0] * pow(x[1], 3) - x[1] - 4)) / (M * x[0]);
-	J[1][1] = ((x[0] * pow(x[1] + M * x[1], 3) - (x[1] + M * x[1]) - 4) - (x[0] * pow(x[1], 3) - x[1] - 4)) / (M * x[1]);
-}
-
-double findSystemMax(vector<double> x) {
-	double x1 = 1.5 * pow(x[0], 3) - pow(x[1], 2) - 1;
-	double x2 = x[0] * pow(x[1], 3) - x[1] - 4;
-	if (abs(x1) > abs(x2)) {
-		return abs(x1);
-	}
-	else {
-		return abs(x2);
-	}
-}
-
-double findAbsMax(vector<double> x, vector<double> x1) {
-	int n = x.size();
-	double max = 0;
-	for (int i = 0; i < n; i++) {
-		if (abs(x1[i]) < 1) {
-			if (abs(x1[i] - x[i]) > max) {
-				max = abs(x1[i] - x[i]);
-			}
-		}
-		else {
-			if (abs((x1[i] - x[i]) / x1[i]) > max)
-				max = abs((x1[i] - x[i]) / x1[i]);
-		}
-	}
-	return max;
+void PrintAnswer(const vector<double> x0, int k) {
+    std::cout << "\nx1 = " << x0[0] << "\nx2 = " << x0[1] << "\nk = " << k;
 }
