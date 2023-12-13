@@ -98,7 +98,7 @@ void solveAuxiliarySystem(double** A, double*& x, int n) {
     cout << "Solution of Ax = Ax':" << endl;
 }
 
-double* residual(double** A, double* b, double* x, int n) {
+double* residual(double** A, double* b, double* x, int n, double* copyB) {
     double* r = new double[n];
     for (int i = 0; i < n; i++){
         r[i] = 0;
@@ -108,6 +108,7 @@ double* residual(double** A, double* b, double* x, int n) {
         for (int j = 0; j < n; j++) {
             sum += A[i][j] * x[j];           
         }
+        copyB[i] = sum;
         r[i] = sum - b[i];
         cout << "r[" << i << "] = " << r[i] << endl;
     }
